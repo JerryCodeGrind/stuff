@@ -1,0 +1,34 @@
+{
+  "case_id": 38,
+  "diagnosis": "Myasthenia gravis",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": 1,
+    "rank_history": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": true
+  },
+  "gpt": {
+    "questions_asked": 3,
+    "final_rank": 1,
+    "rank_history": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": true
+  }
+}

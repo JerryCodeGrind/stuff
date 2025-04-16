@@ -1,0 +1,679 @@
+{
+  "timestamp": "20250415-192421",
+  "parameters": {
+    "max_diseases": 10,
+    "max_questions": 10,
+    "turns_before_narrowing": 3,
+    "confidence_threshold": 0.75
+  },
+  "raw_data": {
+    "ign_rankings": [
+      999,
+      1,
+      999,
+      1,
+      999,
+      999,
+      999,
+      999,
+      999,
+      999
+    ],
+    "gpt_rankings": [
+      999,
+      999,
+      999,
+      999,
+      999,
+      999,
+      999,
+      999,
+      999,
+      999
+    ],
+    "correct_diagnoses": {
+      "ign": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "gpt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "narrowed_out": {
+      "ign": [
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "gpt": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "last_ranks_before_narrowing": {
+      "ign": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "gpt": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "rank_histories": {
+      "ign": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          2,
+          1
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          4,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "gpt": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          2,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null
+        ],
+        [
+          4,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "diagnosis": "Tracheomalacia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 9,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 2,
+      "diagnosis": "Hyperprolactinemia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 3,
+      "diagnosis": "Coronary artery spasm (Prinzmetal angina)",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 4,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 4,
+        "final_rank": 1,
+        "rank_history": [
+          null,
+          null,
+          null,
+          2,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 5,
+      "diagnosis": "IgA nephropathy",
+      "ign": {
+        "questions_asked": 4,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 6,
+      "diagnosis": "Prolactinoma",
+      "ign": {
+        "questions_asked": 6,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          2,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 7,
+      "diagnosis": "Paraneoplastic hypercalcemia",
+      "ign": {
+        "questions_asked": 1,
+        "final_rank": null,
+        "rank_history": [
+          4,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          4,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 8,
+      "diagnosis": "Pemphigus vulgaris",
+      "ign": {
+        "questions_asked": 4,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 9,
+      "diagnosis": "Tubo-ovarian abscess",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    },
+    {
+      "case_id": 10,
+      "diagnosis": "Leprosy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    }
+  ]
+}

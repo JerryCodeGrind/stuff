@@ -1,0 +1,64 @@
+{
+  "timestamp": "20250415-182715",
+  "parameters": {
+    "max_diseases": 10,
+    "max_questions": 10,
+    "turns_before_narrowing": 3,
+    "confidence_threshold": 0.75
+  },
+  "summary": {
+    "ign": {
+      "avg_rank": 1.0,
+      "narrowed_out_count": 0,
+      "found_in_final_diagnosis": 1,
+      "correct_diagnosis_count": 1
+    },
+    "gpt": {
+      "avg_rank": 6.0,
+      "narrowed_out_count": 0,
+      "found_in_final_diagnosis": 1,
+      "correct_diagnosis_count": 0
+    }
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "diagnosis": "Warts",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          7,
+          7,
+          4,
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 6,
+        "rank_history": [
+          10,
+          8,
+          7,
+          8,
+          8,
+          5,
+          4,
+          4,
+          4,
+          6,
+          6
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null
+      }
+    }
+  ]
+}

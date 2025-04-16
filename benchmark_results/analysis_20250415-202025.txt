@@ -1,0 +1,37 @@
+
+===== INCREMENTAL BENCHMARK ANALYSIS =====
+Summary file: benchmark_results/incremental_summary_20250415-202025.json
+Timestamp: 20250415-202025
+Total cases processed: 72
+
+Parameters:
+  max_diseases: 10
+  max_questions: 10
+  turns_before_narrowing: 3
+  confidence_threshold: 0.75
+
+Information Gain Network (IGN) Results:
+  Correct diagnoses: 12/72 (16.7%)
+  Top-1 diagnoses: 12/72 (16.7%)
+  Top-3 diagnoses: 21/72 (29.2%)
+  Top-10 diagnoses: 23/72 (31.9%)
+  Average questions per case: 7.00
+  Ground truth diagnoses narrowed out: 60/72 (83.3%)
+
+GPT Doctor Results:
+  Correct diagnoses: 12/72 (16.7%)
+  Top-1 diagnoses: 12/72 (16.7%)
+  Top-3 diagnoses: 18/72 (25.0%)
+  Top-10 diagnoses: 21/72 (29.2%)
+  Average questions per case: 8.75
+  Ground truth diagnoses narrowed out: 0/72 (0.0%)
+
+Comparison:
+  Better at correct diagnosis: Equal
+  Better at ranking ground truth #1: Equal
+  Better at ranking ground truth in top 3: IGN
+  Better at ranking ground truth in top 10: IGN
+  More efficient (fewer questions): IGN
+
+Overall assessment: Information Gain Network (IGN) is better based on the current incremental results
+  IGN points: 5.0, GPT points: 2.5

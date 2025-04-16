@@ -1,0 +1,40 @@
+{
+  "case_id": 37,
+  "diagnosis": "Leptospirosis",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": 3,
+    "rank_history": [
+      4,
+      4,
+      4,
+      4,
+      3,
+      3,
+      null
+    ],
+    "narrowed_out": true,
+    "last_rank_before_narrowing": 3,
+    "correct_diagnosis": false
+  },
+  "gpt": {
+    "questions_asked": 10,
+    "final_rank": 5,
+    "rank_history": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  }
+}

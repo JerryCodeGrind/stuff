@@ -1,0 +1,3073 @@
+{
+  "timestamp": "20250415-202025",
+  "parameters": {
+    "max_diseases": 10,
+    "max_questions": 10,
+    "turns_before_narrowing": 3,
+    "confidence_threshold": 0.75
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "diagnosis": "Tracheomalacia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 5,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 2,
+      "diagnosis": "Hyperprolactinemia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 3,
+      "diagnosis": "Coronary artery spasm (Prinzmetal angina)",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 4,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 8,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 5,
+      "diagnosis": "IgA nephropathy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 6,
+      "diagnosis": "Prolactinoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 8,
+      "diagnosis": "Pemphigus vulgaris",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 2,
+        "final_rank": 5,
+        "rank_history": [
+          5,
+          5,
+          5
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 9,
+      "diagnosis": "Tubo-ovarian abscess",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 7,
+      "diagnosis": "Paraneoplastic hypercalcemia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 10,
+      "diagnosis": "Leprosy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 11,
+      "diagnosis": "Goodpasture syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 12,
+      "diagnosis": "Arrhythmogenic right ventricular cardiomyopathy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 4,
+        "rank_history": [
+          2,
+          3,
+          3,
+          4,
+          2,
+          4,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 4,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 13,
+      "diagnosis": "Long QT syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 15,
+      "diagnosis": "Myelodysplastic syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 2,
+        "rank_history": [
+          4,
+          4,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 2,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 3,
+        "rank_history": [
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 14,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 16,
+      "diagnosis": "Disseminated gonorrhea",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 18,
+      "diagnosis": "Addisons disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 17,
+      "diagnosis": "Thin basement membrane disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 19,
+      "diagnosis": "Tuberous sclerosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 20,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 21,
+      "diagnosis": "Tuberous sclerosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 22,
+      "diagnosis": "Chronic mesenteric ischemia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 24,
+      "diagnosis": "Platypnea-orthodeoxia syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 6,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 23,
+      "diagnosis": "Leprosy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 25,
+      "diagnosis": "Neuroleptic malignant syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          3,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 5,
+        "final_rank": 1,
+        "rank_history": [
+          4,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 26,
+      "diagnosis": "Bronchiectasis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 2,
+        "rank_history": [
+          2,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 2,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 3,
+        "rank_history": [
+          2,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 27,
+      "diagnosis": "Lymphangioleiomyomatosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 28,
+      "diagnosis": "Myelodysplastic syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 2,
+        "rank_history": [
+          3,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 2,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 4,
+        "rank_history": [
+          5,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 29,
+      "diagnosis": "Platypnea-orthodeoxia syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 30,
+      "diagnosis": "Hereditary angioedema",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 31,
+      "diagnosis": "Tuberous sclerosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 32,
+      "diagnosis": "Multiple myeloma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 33,
+      "diagnosis": "Pheochromocytoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          7,
+          5,
+          3,
+          3,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 34,
+      "diagnosis": "Cholangiocarcinoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 35,
+      "diagnosis": "Long QT syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 36,
+      "diagnosis": "Cushings syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 5,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 37,
+      "diagnosis": "Leptospirosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 3,
+        "rank_history": [
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 3,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 5,
+        "rank_history": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 38,
+      "diagnosis": "Myasthenia gravis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 3,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 39,
+      "diagnosis": "Addisons disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 9,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 40,
+      "diagnosis": "Pulmonary arterial hypertension",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 41,
+      "diagnosis": "Axial spondyloarthritis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 3,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 42,
+      "diagnosis": "Leprosy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 43,
+      "diagnosis": "Parietal lobe stroke",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 44,
+      "diagnosis": "Pheochromocytoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          6,
+          5,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 45,
+      "diagnosis": "Leprosy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 46,
+      "diagnosis": "Aplastic anemia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 3,
+        "rank_history": [
+          5,
+          4,
+          3,
+          3,
+          3,
+          3,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 3,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 2,
+        "rank_history": [
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 47,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 9,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 48,
+      "diagnosis": "Myelodysplastic syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          5,
+          5,
+          5,
+          4,
+          2,
+          2,
+          2,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 2,
+        "rank_history": [
+          7,
+          6,
+          6,
+          6,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2,
+          2
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 49,
+      "diagnosis": "Long QT syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 50,
+      "diagnosis": "Long QT syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 51,
+      "diagnosis": "Bronchiectasis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 2,
+        "rank_history": [
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 52,
+      "diagnosis": "Focal segmental glomerulosclerosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 2,
+        "rank_history": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 2,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 53,
+      "diagnosis": "Insulinoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 5,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 54,
+      "diagnosis": "Eosinophilic esophagitis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 55,
+      "diagnosis": "Periodic paralysis (Hypokalemic)",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 56,
+      "diagnosis": "Tularemia",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 57,
+      "diagnosis": "Eosinophilic esophagitis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 4,
+        "rank_history": [
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 4,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 58,
+      "diagnosis": "Neuroleptic malignant syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 5,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 59,
+      "diagnosis": "Pulmonary arterial hypertension",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 60,
+      "diagnosis": "Dermatomyositis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 4,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 61,
+      "diagnosis": "Lymphangioleiomyomatosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 62,
+      "diagnosis": "Hyperemesis gravidarum",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 2,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 63,
+      "diagnosis": "Sjgrens syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 3,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 64,
+      "diagnosis": "Platypnea-orthodeoxia syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 65,
+      "diagnosis": "Antiphospholipid syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 67,
+      "diagnosis": "Behets disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 3,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 66,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 3,
+        "rank_history": [
+          5,
+          3,
+          3,
+          3,
+          3,
+          3,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 3,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 69,
+      "diagnosis": "Idiopathic intracranial hypertension",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 70,
+      "diagnosis": "Thin basement membrane disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 72,
+      "diagnosis": "Endometriosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 6,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 71,
+      "diagnosis": "Myelodysplastic syndrome",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 2,
+        "rank_history": [
+          5,
+          4,
+          4,
+          3,
+          2,
+          2,
+          2,
+          2,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 2,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 2,
+        "rank_history": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          4,
+          3,
+          3,
+          2,
+          2,
+          2
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 68,
+      "diagnosis": "Pheochromocytoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 3,
+        "rank_history": [
+          6,
+          6,
+          6,
+          5,
+          3,
+          3,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 3,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          6,
+          3,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 73,
+      "diagnosis": "Cutaneous lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 74,
+      "diagnosis": "Whipples disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 75,
+      "diagnosis": "Pheochromocytoma",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": 1,
+        "rank_history": [
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 76,
+      "diagnosis": "Tuberous sclerosis",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 78,
+      "diagnosis": "Leprosy",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 77,
+      "diagnosis": "Systemic lupus erythematosus",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      },
+      "gpt": {
+        "questions_asked": 6,
+        "final_rank": 1,
+        "rank_history": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": true
+      }
+    },
+    {
+      "case_id": 79,
+      "diagnosis": "Thin basement membrane disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 80,
+      "diagnosis": "Typhoid fever",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": 2,
+        "rank_history": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": 2,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    },
+    {
+      "case_id": 81,
+      "diagnosis": "Adult-onset Stills disease",
+      "ign": {
+        "questions_asked": 7,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": true,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      },
+      "gpt": {
+        "questions_asked": 10,
+        "final_rank": null,
+        "rank_history": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "narrowed_out": false,
+        "last_rank_before_narrowing": null,
+        "correct_diagnosis": false
+      }
+    }
+  ]
+}

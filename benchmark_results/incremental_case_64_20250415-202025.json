@@ -1,0 +1,38 @@
+{
+  "case_id": 64,
+  "diagnosis": "Platypnea-orthodeoxia syndrome",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": null,
+    "rank_history": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "narrowed_out": true,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  },
+  "gpt": {
+    "questions_asked": 10,
+    "final_rank": null,
+    "rank_history": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  }
+}

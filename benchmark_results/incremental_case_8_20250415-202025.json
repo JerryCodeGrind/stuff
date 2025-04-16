@@ -1,0 +1,30 @@
+{
+  "case_id": 8,
+  "diagnosis": "Pemphigus vulgaris",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": null,
+    "rank_history": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "narrowed_out": true,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  },
+  "gpt": {
+    "questions_asked": 2,
+    "final_rank": 5,
+    "rank_history": [
+      5,
+      5,
+      5
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  }
+}

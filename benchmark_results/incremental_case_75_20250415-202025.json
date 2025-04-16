@@ -1,0 +1,41 @@
+{
+  "case_id": 75,
+  "diagnosis": "Pheochromocytoma",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": 1,
+    "rank_history": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": true
+  },
+  "gpt": {
+    "questions_asked": 10,
+    "final_rank": 1,
+    "rank_history": [
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": true
+  }
+}

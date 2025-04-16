@@ -1,6 +1,5 @@
 from typing import Dict, List, Tuple
 from src.utils.api import call_completion_api
-from src.models.case import POTENTIAL_SKIN_DIAGNOSES
 
 class GPTDoctorAgent:
     """
@@ -17,7 +16,14 @@ class GPTDoctorAgent:
     def update_probabilities(self, additional_info: str, get_reasoning: bool = False, num_diseases: int = 10) -> Dict[str, float]:
         """
         Update probabilities based on new information.
-        Uses the same prompting as DiagnoserAgent for fair comparison.
+        
+        Args:
+            additional_info: New clinical information
+            get_reasoning: Whether to return reasoning along with probabilities (deprecated, kept for backward compatibility)
+            num_diseases: Number of top diseases to include in the response
+            
+        Returns:
+            Dictionary of disease probabilities, and empty reasoning if get_reasoning is True
         """
         # Update conversation history
         if additional_info.startswith("Question:"):
@@ -73,54 +79,8 @@ Where:
 This exact format is required for automated parsing. Do not deviate from it in any way.
 """
 
-        reasoning_prompt = f"""You are an expert medical doctor conducting a patient consultation. Based on the information provided, analyze the likely diagnoses and their probabilities, focusing on a realistic diagnostic process.
-
-Patient Information: {self.patient_info}  
-Prior Diagnostic Considerations: {self.previous_probabilities}  
-New Clinical Information: {additional_info}
-
-Your task is to think like a real doctor during a consultation, updating your diagnostic impression after each patient response.
-
-### Medical Process Guidelines:
-- Consider the epidemiology and prevalence of different conditions
-- Focus on symptoms that differentiate between your top diagnostic considerations
-- Evaluate the patient's specific risk factors and presentation
-- Prioritize common conditions over rare ones unless specific red flags are present
-- Think about both the chief complaint and any incidental findings
-
-### Key Instructions:
-- Reason through the diagnostic process naturally, as a doctor would during a real consultation
-- Summarize your thought process concisely but thoroughly
-- Identify which pieces of information significantly change your diagnostic impression
-- Consider how the new information confirms or challenges your previous thinking
-- Keep the reasoning conversational but professional, as if discussing with colleagues
-
-### REQUIRED OUTPUT FORMAT:
-You MUST provide your response in exactly TWO parts, clearly separated by a double newline (\\n\\n):
-
-PART 1: Your clinical reasoning - explain your thought process and how the new information affects your diagnostic impression. Be concise but thorough.
-
-PART 2: EXACTLY {num_diseases} diagnoses with their probabilities, formatted as follows:
-
-Disease name 1|0.XXX
-Disease name 2|0.XXX
-Disease name 3|0.XXX
-Disease name 4|0.XXX
-Disease name 5|0.XXX
-(etc. until you have provided exactly {num_diseases} diseases)
-
-Where:
-- Each disease-probability pair must be on its own line
-- Use the pipe character | between disease name and probability
-- Probabilities must be between 0 and 1 (e.g., 0.350)
-- The sum of all probabilities must equal 1.000 exactly
-- If you're unsure of additional diagnoses to include, consider these common dermatological conditions: Warts, Psoriasis, Eczema (Atopic Dermatitis), Contact Dermatitis, Seborrheic Keratosis, Actinic Keratosis, Lichen Planus, Folliculitis, Basal Cell Carcinoma, Squamous Cell Carcinoma.
-
-This exact format is required for automated parsing. Do not include any additional text after the probability list.
-"""
-        
         # Use the appropriate prompt based on whether reasoning is requested
-        current_prompt = reasoning_prompt if get_reasoning else prompt
+        current_prompt = prompt
         
         # Make API call
         response = call_completion_api(
@@ -129,15 +89,6 @@ This exact format is required for automated parsing. Do not include any addition
         )
         
         content = response.choices[0].message.content
-        
-        # Extract reasoning if requested
-        reasoning = None
-        if get_reasoning:
-            # Split content to separate reasoning from probabilities list
-            parts = content.split("\n\n")
-            if len(parts) > 1:
-                reasoning = parts[0]
-                content = parts[-1]  # Take the last part which should be the probabilities
         
         # Simple, direct parsing approach - just look for lines with pipe symbols
         probabilities = {}
@@ -180,7 +131,7 @@ This exact format is required for automated parsing. Do not include any addition
         if len(probabilities) < num_diseases:
             # Add additional diseases with very small probabilities
             existing_diseases = set(probabilities.keys())
-            for disease in POTENTIAL_SKIN_DIAGNOSES:
+            for disease in ["Warts", "Psoriasis", "Eczema (Atopic Dermatitis)", "Contact Dermatitis", "Seborrheic Keratosis", "Actinic Keratosis", "Lichen Planus", "Folliculitis", "Basal Cell Carcinoma", "Squamous Cell Carcinoma"]:
                 if disease not in existing_diseases and len(probabilities) < num_diseases:
                     probabilities[disease] = 0.0001
             
@@ -211,57 +162,48 @@ This exact format is required for automated parsing. Do not include any addition
         self.previous_probabilities = probabilities
         self.patient_info += additional_info + " "
         
-        # If reasoning was requested, return both reasoning and probabilities
-        if get_reasoning and reasoning:
-            return probabilities, reasoning
+        # If reasoning was requested, return an empty string as reasoning
+        if get_reasoning:
+            empty_reasoning = "No reasoning provided as reasoning output is disabled."
+            return probabilities, empty_reasoning
         return probabilities
     
-    def generate_next_question(self, get_reasoning: bool = False) -> Tuple[str, str]:
+    def generate_next_question(self, get_reasoning: bool = False) -> str:
         """
-        Generate the next question to ask the patient based on current understanding.
+        Generate the next question to ask the patient.
         
+        Args:
+            get_reasoning: Whether to return reasoning along with the question (deprecated, kept for backward compatibility)
+            
         Returns:
-            Tuple of (question, reasoning)
+            The next question to ask, and empty reasoning if get_reasoning is True
         """
-        prompt = f"""You are an expert medical doctor interviewing a patient. Based on the medical information collected so far, generate ONE specific diagnostic question that would be most helpful to ask the patient next.
+        prompt = f"""You are an expert medical doctor conducting a patient consultation. Based on the following information, generate ONE specific, direct diagnostic question to ask the patient next.
 
-Patient Information collected so far: {self.patient_info}
-Current top diagnostic considerations: {dict(sorted(self.previous_probabilities.items(), key=lambda x: x[1], reverse=True)[:3])}
-Previous doctor-patient interaction: {self.conversation_history}
+Patient Information: {self.patient_info}
+Current Diagnostic Considerations: {self.previous_probabilities}
 
-Based on your diagnostic thinking process, what's the single most important question you should ask next to differentiate between your top diagnostic considerations?
+Your task is to think like a real doctor during a step-by-step diagnostic process. Ask the SINGLE most valuable question that would help distinguish between your top diagnostic considerations.
 
-Your question should:
-1. Be natural and conversational, as a real doctor would ask
-2. Focus on key symptoms or findings that would help narrow your diagnosis
-3. Build on previously collected information without repeating questions
-4. Be specific enough to yield meaningful information, but phrased in patient-friendly language
-5. Help differentiate between the most likely diagnoses in your current thinking
+The ideal question should:
+1. Be specific and focused on a key differentiating factor
+2. Help distinguish between the most likely diagnoses
+3. Not repeat information you already have
+4. Be phrased in a way the patient can easily understand
 
-Your output MUST be in this format:
-REASONING: [Your clinical reasoning for asking this question - why is this the most important thing to ask right now?]
-QUESTION: [A single, clear, conversational question for the patient]
+Return ONLY the question to ask the patient, nothing else. No reasoning, no explanation, no numbering.
 """
         
+        # Make API call
         response = call_completion_api(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}]
         )
         
-        content = response.choices[0].message.content
+        question = response.choices[0].message.content.strip()
         
-        # Extract reasoning and question
-        reasoning = ""
-        question = ""
-        
-        for line in content.split('\n'):
-            if line.startswith("REASONING:"):
-                reasoning = line[len("REASONING:"):].strip()
-            elif line.startswith("QUESTION:"):
-                question = line[len("QUESTION:"):].strip()
-        
-        # If no question is extracted, use a default one
-        if not question:
-            question = "Can you tell me more about your symptoms?"
-            
-        return question, reasoning 
+        # If reasoning was requested, return an empty string as reasoning
+        if get_reasoning:
+            empty_reasoning = "No reasoning provided as reasoning output is disabled."
+            return question, empty_reasoning
+        return question 

@@ -63,8 +63,7 @@ def compare_approaches(
             max_questions=max_questions,
             max_workers=max_workers,
             turns_before_narrowing=turns_before_narrowing,
-            confidence_threshold=confidence_threshold,
-            max_questions_to_evaluate=1000  # Set to a very high number to evaluate all questions
+            confidence_threshold=confidence_threshold
         )
         
         # Run GPT Doctor approach
@@ -79,7 +78,120 @@ def compare_approaches(
         case_time = time.time() - case_start_time
         print(f"Case {case_idx+1} completed in {case_time:.2f} seconds")
         
+        # Save incremental results after each case
+        save_incremental_results(case_idx, case, ign_result, gpt_result)
+        
         return ign_result, gpt_result
+    
+    # Helper function to save incremental results
+    def save_incremental_results(case_idx, case, ign_result, gpt_result):
+        # Create results directory if it doesn't exist
+        if not os.path.exists("benchmark_results"):
+            os.makedirs("benchmark_results")
+            
+        # Generate timestamp if not already set
+        if not hasattr(save_incremental_results, "timestamp"):
+            save_incremental_results.timestamp = time.strftime("%Y%m%d-%H%M%S")
+            
+        # Prepare case data
+        ground_truth = case["diagnosis"].lower()
+            
+        # Calculate ground truth rank for IGN
+        ign_rank = None
+        if "ground_truth_rank" in ign_result and ign_result["ground_truth_rank"] is not None:
+            ign_rank = ign_result["ground_truth_rank"]
+        elif "ground_truth_narrowed_out" in ign_result and ign_result["ground_truth_narrowed_out"] and "ground_truth_last_rank" in ign_result:
+            ign_rank = ign_result["ground_truth_last_rank"] if ign_result["ground_truth_last_rank"] is not None else 999
+        else:
+            # Calculate from final probabilities
+            ign_final_diagnoses = ign_result["diagnoses"][-1]["probabilities"]
+            ign_sorted_diagnoses = sorted(ign_final_diagnoses.items(), key=lambda x: x[1], reverse=True)
+            ign_rank = 999  # Default if not found
+            
+            for idx, (diagnosis, _) in enumerate(ign_sorted_diagnoses):
+                if ground_truth in diagnosis.lower():
+                    ign_rank = idx + 1
+                    break
+                    
+        # Calculate ground truth rank for GPT
+        gpt_rank = None
+        if "ground_truth_rank" in gpt_result and gpt_result["ground_truth_rank"] is not None:
+            gpt_rank = gpt_result["ground_truth_rank"]
+        elif "ground_truth_narrowed_out" in gpt_result and gpt_result["ground_truth_narrowed_out"] and "ground_truth_last_rank" in gpt_result:
+            gpt_rank = gpt_result["ground_truth_last_rank"] if gpt_result["ground_truth_last_rank"] is not None else 999
+        else:
+            # Calculate from final probabilities
+            gpt_final_diagnoses = gpt_result["diagnoses"][-1]["probabilities"]
+            gpt_sorted_diagnoses = sorted(gpt_final_diagnoses.items(), key=lambda x: x[1], reverse=True)
+            gpt_rank = 999  # Default if not found
+            
+            for idx, (diagnosis, _) in enumerate(gpt_sorted_diagnoses):
+                if ground_truth in diagnosis.lower():
+                    gpt_rank = idx + 1
+                    break
+            
+        # Create case data
+        case_data = {
+            "case_id": case_idx + 1,
+            "diagnosis": case["diagnosis"],
+            "ign": {
+                "questions_asked": ign_result["questions_asked"],
+                "final_rank": ign_rank if ign_rank < 999 else None,
+                "rank_history": ign_result.get("ground_truth_rank_history", []),
+                "narrowed_out": ign_result.get("ground_truth_narrowed_out", False),
+                "last_rank_before_narrowing": ign_result.get("ground_truth_last_rank"),
+                "correct_diagnosis": ign_result["correct_diagnosis"]
+            },
+            "gpt": {
+                "questions_asked": gpt_result["questions_asked"],
+                "final_rank": gpt_rank if gpt_rank < 999 else None,
+                "rank_history": gpt_result.get("ground_truth_rank_history", []),
+                "narrowed_out": gpt_result.get("ground_truth_narrowed_out", False),
+                "last_rank_before_narrowing": gpt_result.get("ground_truth_last_rank"),
+                "correct_diagnosis": gpt_result["correct_diagnosis"]
+            }
+        }
+        
+        # Save to incremental file
+        incremental_file = f"benchmark_results/incremental_case_{case_idx+1}_{save_incremental_results.timestamp}.json"
+        with open(incremental_file, 'w') as f:
+            json.dump(case_data, f, indent=2)
+            
+        print(f"Incremental results for case {case_idx+1} saved to: {incremental_file}")
+        
+        # Also save an updated summary file
+        summary_file = f"benchmark_results/incremental_summary_{save_incremental_results.timestamp}.json"
+        
+        # Load existing summary if it exists, otherwise create new
+        if os.path.exists(summary_file):
+            with open(summary_file, 'r') as f:
+                summary_data = json.load(f)
+                
+            # Update the cases list
+            for i, existing_case in enumerate(summary_data["cases"]):
+                if existing_case["case_id"] == case_idx + 1:
+                    summary_data["cases"][i] = case_data
+                    break
+            else:
+                summary_data["cases"].append(case_data)
+        else:
+            # Create new summary
+            summary_data = {
+                "timestamp": save_incremental_results.timestamp,
+                "parameters": {
+                    "max_diseases": max_diseases,
+                    "max_questions": max_questions,
+                    "turns_before_narrowing": turns_before_narrowing,
+                    "confidence_threshold": confidence_threshold
+                },
+                "cases": [case_data]
+            }
+            
+        # Save updated summary
+        with open(summary_file, 'w') as f:
+            json.dump(summary_data, f, indent=2)
+            
+        print(f"Updated summary saved to: {summary_file}")
     
     # Run cases either in parallel or sequentially
     if parallel_cases and len(cases) > 1:
@@ -119,33 +231,44 @@ def compare_approaches(
     for i, case in enumerate(cases):
         ground_truth = case["diagnosis"].lower()
         
-        # IGN ranking
-        ign_final_diagnoses = ign_results[i]["diagnoses"][-1]["probabilities"]
-        ign_sorted_diagnoses = sorted(ign_final_diagnoses.items(), key=lambda x: x[1], reverse=True)
-        ign_rank = 999  # Default if not found
-        
-        for idx, (diagnosis, _) in enumerate(ign_sorted_diagnoses):
-            if ground_truth in diagnosis.lower():
-                ign_rank = idx + 1
-                break
+        # Get the ground truth rank directly from the results if available
+        # This handles cases where tracking was done throughout the process
+        if "ground_truth_rank" in ign_results[i] and ign_results[i]["ground_truth_rank"] is not None:
+            ign_rank = ign_results[i]["ground_truth_rank"]
+        elif "ground_truth_narrowed_out" in ign_results[i] and ign_results[i]["ground_truth_narrowed_out"] and "ground_truth_last_rank" in ign_results[i]:
+            # If narrowed out, use the last rank before narrowing
+            ign_rank = ign_results[i]["ground_truth_last_rank"] if ign_results[i]["ground_truth_last_rank"] is not None else 999
+        else:
+            # Fall back to calculating from final probabilities
+            ign_final_diagnoses = ign_results[i]["diagnoses"][-1]["probabilities"]
+            ign_sorted_diagnoses = sorted(ign_final_diagnoses.items(), key=lambda x: x[1], reverse=True)
+            ign_rank = 999  # Default if not found
+            
+            for idx, (diagnosis, _) in enumerate(ign_sorted_diagnoses):
+                if ground_truth in diagnosis.lower():
+                    ign_rank = idx + 1
+                    break
         
         ign_rankings.append(ign_rank)
         
-        # GPT ranking
-        gpt_final_diagnoses = gpt_results[i]["diagnoses"][-1]["probabilities"]
-        gpt_sorted_diagnoses = sorted(gpt_final_diagnoses.items(), key=lambda x: x[1], reverse=True)
-        gpt_rank = 999  # Default if not found
-        
-        for idx, (diagnosis, _) in enumerate(gpt_sorted_diagnoses):
-            if ground_truth in diagnosis.lower():
-                gpt_rank = idx + 1
-                break
+        # Same logic for GPT Doctor
+        if "ground_truth_rank" in gpt_results[i] and gpt_results[i]["ground_truth_rank"] is not None:
+            gpt_rank = gpt_results[i]["ground_truth_rank"]
+        elif "ground_truth_narrowed_out" in gpt_results[i] and gpt_results[i]["ground_truth_narrowed_out"] and "ground_truth_last_rank" in gpt_results[i]:
+            # If narrowed out, use the last rank before narrowing
+            gpt_rank = gpt_results[i]["ground_truth_last_rank"] if gpt_results[i]["ground_truth_last_rank"] is not None else 999
+        else:
+            # Fall back to calculating from final probabilities
+            gpt_final_diagnoses = gpt_results[i]["diagnoses"][-1]["probabilities"]
+            gpt_sorted_diagnoses = sorted(gpt_final_diagnoses.items(), key=lambda x: x[1], reverse=True)
+            gpt_rank = 999  # Default if not found
+            
+            for idx, (diagnosis, _) in enumerate(gpt_sorted_diagnoses):
+                if ground_truth in diagnosis.lower():
+                    gpt_rank = idx + 1
+                    break
                 
         gpt_rankings.append(gpt_rank)
-    
-    # Calculate average rankings
-    avg_ign_rank = sum([r for r in ign_rankings if r < 999]) / len([r for r in ign_rankings if r < 999]) if [r for r in ign_rankings if r < 999] else 0
-    avg_gpt_rank = sum([r for r in gpt_rankings if r < 999]) / len([r for r in gpt_rankings if r < 999]) if [r for r in gpt_rankings if r < 999] else 0
     
     # Compile comparison results
     comparison = {
@@ -158,7 +281,6 @@ def compare_approaches(
             "confident_percentage": ign_confident/len(cases)*100 if cases else 0,
             "avg_questions": ign_questions/len(cases) if cases else 0,
             "ground_truth_rankings": ign_rankings,
-            "avg_ranking": avg_ign_rank,
             "detailed_results": ign_results
         },
         "gpt_doctor": {
@@ -168,7 +290,6 @@ def compare_approaches(
             "confident_percentage": gpt_confident/len(cases)*100 if cases else 0,
             "avg_questions": gpt_questions/len(cases) if cases else 0,
             "ground_truth_rankings": gpt_rankings,
-            "avg_ranking": avg_gpt_rank,
             "detailed_results": gpt_results
         }
     }
@@ -182,13 +303,11 @@ def compare_approaches(
     print(f"  Correct diagnoses: {comparison['information_gain_network']['correct_diagnoses']}/{comparison['total_cases']} ({comparison['information_gain_network']['correct_percentage']:.1f}%)")
     print(f"  Confident diagnoses: {comparison['information_gain_network']['confident_diagnoses']}/{comparison['total_cases']} ({comparison['information_gain_network']['confident_percentage']:.1f}%)")
     print(f"  Average questions per case: {comparison['information_gain_network']['avg_questions']:.1f}")
-    print(f"  Average ground truth ranking: {comparison['information_gain_network']['avg_ranking']:.2f}")
     
     print("\nGPT Doctor:")
     print(f"  Correct diagnoses: {comparison['gpt_doctor']['correct_diagnoses']}/{comparison['total_cases']} ({comparison['gpt_doctor']['correct_percentage']:.1f}%)")
     print(f"  Confident diagnoses: {comparison['gpt_doctor']['confident_diagnoses']}/{comparison['total_cases']} ({comparison['gpt_doctor']['confident_percentage']:.1f}%)")
     print(f"  Average questions per case: {comparison['gpt_doctor']['avg_questions']:.1f}")
-    print(f"  Average ground truth ranking: {comparison['gpt_doctor']['avg_ranking']:.2f}")
     
     # Print detailed rankings and top diagnoses for each case
     for i, case in enumerate(cases):
@@ -236,8 +355,75 @@ def compare_approaches(
         results_file = f"benchmark_results/comparison_{timestamp}.json"
         with open(results_file, 'w') as f:
             json.dump(comparison, f, indent=2)
+        # Save ground truth rank data to a separate file
+        rank_data = {
+            "timestamp": timestamp,
+            "parameters": {
+                "max_diseases": max_diseases,
+                "max_questions": max_questions,
+                "turns_before_narrowing": turns_before_narrowing,
+                "confidence_threshold": confidence_threshold
+            },
+            "raw_data": {
+                "ign_rankings": ign_rankings,
+                "gpt_rankings": gpt_rankings,
+                "correct_diagnoses": {
+                    "ign": [r["correct_diagnosis"] for r in ign_results],
+                    "gpt": [r["correct_diagnosis"] for r in gpt_results]
+                },
+                "narrowed_out": {
+                    "ign": [r.get("ground_truth_narrowed_out", False) for r in ign_results],
+                    "gpt": [r.get("ground_truth_narrowed_out", False) for r in gpt_results]
+                },
+                "last_ranks_before_narrowing": {
+                    "ign": [r.get("ground_truth_last_rank") for r in ign_results],
+                    "gpt": [r.get("ground_truth_last_rank") for r in gpt_results]
+                },
+                "rank_histories": {
+                    "ign": [r.get("ground_truth_rank_history", []) for r in ign_results],
+                    "gpt": [r.get("ground_truth_rank_history", []) for r in gpt_results]
+                }
+            },
+            "cases": []
+        }
+        
+        for i, case in enumerate(cases):
+            # Get final diagnoses and ranks
+            ign_result = ign_results[i]
+            gpt_result = gpt_results[i]
+            
+            # Get the current ranks (already calculated above)
+            current_ign_rank = ign_rankings[i]
+            current_gpt_rank = gpt_rankings[i]
+            
+            # Collect detailed rank information
+            case_rank_data = {
+                "case_id": i + 1,
+                "diagnosis": case["diagnosis"],
+                "ign": {
+                    "questions_asked": ign_result["questions_asked"],
+                    "final_rank": current_ign_rank if current_ign_rank < 999 else None,
+                    "rank_history": ign_result.get("ground_truth_rank_history", []),
+                    "narrowed_out": ign_result.get("ground_truth_narrowed_out", False),
+                    "last_rank_before_narrowing": ign_result.get("ground_truth_last_rank")
+                },
+                "gpt": {
+                    "questions_asked": gpt_result["questions_asked"],
+                    "final_rank": current_gpt_rank if current_gpt_rank < 999 else None,
+                    "rank_history": gpt_result.get("ground_truth_rank_history", []),
+                    "narrowed_out": gpt_result.get("ground_truth_narrowed_out", False),
+                    "last_rank_before_narrowing": gpt_result.get("ground_truth_last_rank")
+                }
+            }
+            rank_data["cases"].append(case_rank_data)
+        
+        # Save to a separate file
+        rank_file = f"benchmark_results/ground_truth_ranks_{timestamp}.json"
+        with open(rank_file, 'w') as f:
+            json.dump(rank_data, f, indent=2)
         
         print(f"\nDetailed results saved to: {results_file}")
+        print(f"Ground truth rank data saved to: {rank_file}")
     
     return comparison
 
@@ -245,8 +431,8 @@ def main():
     """Main entry point for benchmark comparisons"""
     # Hard-coded benchmark parameters
     MAX_DISEASES = 10          # Get top 10 diagnoses for comparison
-    MAX_QUESTIONS = 3          # Number of questions each approach can ask
-    MAX_WORKERS = 2            # Number of concurrent threads
+    MAX_QUESTIONS = 10          # Number of questions each approach can ask
+    MAX_WORKERS = 4            # Number of concurrent threads
     SAVE_RESULTS = True        # Save detailed results to file
     TURNS_BEFORE_NARROWING = 1 # Start narrowing after this many questions
     PARALLEL_CASES = True      # Enable parallel case processing

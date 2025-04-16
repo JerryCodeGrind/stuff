@@ -46,6 +46,9 @@ def run_information_gain_network(
     probability_agent = ProbabilityAgent(questions_per_disease=questions_per_disease)
     customer = CustomerAgent(case['patient_profile'])
     
+    # Get ground truth diagnosis in lowercase for comparison
+    ground_truth = case["diagnosis"].lower()
+    
     results = {
         "questions_asked": 0,
         "diagnoses": [],
@@ -54,7 +57,11 @@ def run_information_gain_network(
         "final_diagnosis": None,
         "final_probability": 0.0,
         "ground_truth": case["diagnosis"],
-        "narrowing_events": []
+        "narrowing_events": [],
+        "ground_truth_rank": None,
+        "ground_truth_rank_history": [],
+        "ground_truth_narrowed_out": False,
+        "ground_truth_last_rank": None
     }
     
     # Get initial probabilities
@@ -65,19 +72,27 @@ def run_information_gain_network(
         num_diseases=max_diseases
     )
     
-    print("\n=== INITIAL DIAGNOSTIC REASONING ===")
-    print(initial_reasoning)
-    
-    print(f"\nInitial disease probabilities:")
+    print("\n=== INITIAL PROBABILITIES ===")
     for disease, prob in sorted(current_probs.items(), key=lambda x: x[1], reverse=True):
         print(f"  {disease}: {prob:.3f}")
     
     # Track the initial diagnoses
     results["diagnoses"].append({
         "turn": 0,
-        "reasoning": initial_reasoning,
         "probabilities": current_probs
     })
+    
+    # Calculate and track initial ground truth rank
+    ground_truth_rank = None
+    sorted_diagnoses = sorted(current_probs.items(), key=lambda x: x[1], reverse=True)
+    for idx, (diagnosis, _) in enumerate(sorted_diagnoses):
+        if ground_truth in diagnosis.lower():
+            ground_truth_rank = idx + 1
+            break
+    
+    results["ground_truth_rank"] = ground_truth_rank
+    results["ground_truth_rank_history"].append(ground_truth_rank)
+    print(f"Initial ground truth rank: {ground_truth_rank}")
     
     # Continue asking questions until only one disease remains or max questions reached
     questions_asked = 0
@@ -117,12 +132,24 @@ def run_information_gain_network(
             
             print(f"Narrowing down to top {num_to_keep} diseases: {', '.join(focused_diseases)}")
             
+            # Check if ground truth has been narrowed out
+            ground_truth_included = any(ground_truth in disease.lower() for disease in focused_diseases)
+            if not ground_truth_included and not results["ground_truth_narrowed_out"]:
+                print(f"⚠️ Ground truth diagnosis '{case['diagnosis']}' has been narrowed out!")
+                results["ground_truth_narrowed_out"] = True
+                # Save the rank before narrowing as the last rank
+                if ground_truth_rank is not None:
+                    results["ground_truth_last_rank"] = ground_truth_rank
+                # Since the ground truth was narrowed out, add None to the rank history
+                results["ground_truth_rank_history"].append(None)
+            
             # Record the narrowing event
             results["narrowing_events"].append({
                 "turn": questions_asked,
                 "diseases_before": len(current_probs),
                 "diseases_after": num_to_keep,
-                "focused_diseases": focused_diseases
+                "focused_diseases": focused_diseases,
+                "ground_truth_included": ground_truth_included
             })
             
             # If narrowed to a single disease, consider it a confident diagnosis
@@ -135,78 +162,20 @@ def run_information_gain_network(
                     print("Single diagnosis reached. Stopping questions.")
                     break
             
-            # Generate disease-specific questions for focused diseases
-            disease_descriptions = {}
+            # Generate focused questions for the narrowed set of diseases
+            print(f"Generating new focused questions specific to: {', '.join(focused_diseases)}")
             
-            # List of common disease categories and their related symptoms/characteristics
-            disease_categories = {
-                "Cardiovascular": ["chest pain", "shortness of breath", "palpitations", "sweating", "radiation", "blood pressure"],
-                "Respiratory": ["cough", "wheezing", "sputum", "shortness of breath", "chest pain", "respiratory rate"],
-                "Gastrointestinal": ["abdominal pain", "nausea", "vomiting", "diarrhea", "constipation", "stool", "appetite"],
-                "Neurological": ["headache", "dizziness", "numbness", "tingling", "weakness", "vision changes", "speech"],
-                "Hematological": ["bleeding", "bruising", "fatigue", "pallor", "weight loss", "night sweats", "lymph nodes"],
-                "Endocrine": ["thirst", "urination", "weight changes", "fatigue", "hair loss", "heat/cold intolerance"],
-                "Dermatological": ["rash", "lesions", "itching", "warts", "scaling", "papules", "pustules", "dryness"]
-            }
+            # Simple prompt to generate questions focused on the diseases we're considering
+            focused_prompt = f"""Generate {questions_per_disease * len(focused_diseases) * 3} HIGHLY SPECIFIC diagnostic questions that would help differentiate ONLY between these specific diseases: {', '.join(focused_diseases)}.
             
-            # Identify which category each focused disease belongs to
-            for disease in focused_diseases:
-                disease_lower = disease.lower()
-                
-                if any(term in disease_lower for term in ["heart", "cardiac", "coronary", "aortic", "artery", "vascular", "angina", "infarction"]):
-                    category = "Cardiovascular"
-                elif any(term in disease_lower for term in ["lung", "pulmonary", "respiratory", "pneumonia", "copd", "asthma", "bronchitis"]):
-                    category = "Respiratory"
-                elif any(term in disease_lower for term in ["stomach", "intestine", "bowel", "colon", "liver", "pancreas", "gastric"]):
-                    category = "Gastrointestinal" 
-                elif any(term in disease_lower for term in ["brain", "neuro", "stroke", "seizure", "migraine", "dementia", "alzheimer"]):
-                    category = "Neurological"
-                elif any(term in disease_lower for term in ["blood", "anemia", "leukemia", "lymphoma", "bleeding", "clot", "thrombosis"]):
-                    category = "Hematological"
-                elif any(term in disease_lower for term in ["diabetes", "thyroid", "hormone", "adrenal", "pituitary", "metabolic"]):
-                    category = "Endocrine"
-                elif any(term in disease_lower for term in ["skin", "dermat", "rash", "wart", "acne", "psoriasis", "eczema", "lesion"]):
-                    category = "Dermatological"
-                else:
-                    category = "Other"
-                    
-                # Store the category and relevant symptoms for this disease
-                disease_descriptions[disease] = category
-            
-            # Identify key differentiating factors between the focused diseases
-            same_category = len(set(disease_descriptions.values())) == 1
-            category_terms = []
-            
-            if same_category:
-                # If all diseases are in the same category, use that category's terms
-                category = list(disease_descriptions.values())[0]
-                if category in disease_categories:
-                    category_terms = disease_categories[category]
-            else:
-                # If diseases span categories, use terms from all relevant categories
-                for category in set(disease_descriptions.values()):
-                    if category in disease_categories:
-                        category_terms.extend(disease_categories[category])
-            
-            # Create a more targeted prompt using the identified categories and terms
-            differentiating_terms = ", ".join(category_terms)
-            
-            # Increase the number of questions per disease when narrowing to ensure enough valuable questions
-            narrowing_question_multiplier = 3  # Generate 3x more questions after narrowing         
-                    
-            focused_prompt = f"""Generate {questions_per_disease * len(focused_diseases) * narrowing_question_multiplier} HIGHLY SPECIFIC diagnostic questions that would help differentiate ONLY between these specific diseases: {', '.join(focused_diseases)}.
-            
-            These diseases relate to the following symptoms and characteristics: {differentiating_terms}
-            
-            The questions must be STRICTLY focused on distinguishing between {', '.join(focused_diseases)} and should NOT ask about unrelated conditions.
+            The questions must be STRICTLY focused on distinguishing between these diseases and should NOT ask about unrelated conditions.
             
             Each question should:
             1. Target specific symptoms, signs, or risk factors that help distinguish between these specific diseases
             2. Have high discriminative value between these diseases
             3. Be directly relevant to the differential diagnosis of these conditions
-            4. NOT introduce questions about unrelated diseases or systems
-            5. Focus on the characteristics that are MOST different between these specific conditions
-            6. Include questions about timing, severity, triggers, and associated symptoms
+            4. Focus on the characteristics that are MOST different between these specific conditions
+            5. Include questions about timing, severity, triggers, and associated symptoms
             
             Return ONLY the questions, one per line, with no additional text or numbering.
             """
@@ -300,24 +269,33 @@ def run_information_gain_network(
         patient_response = customer.respond_to_question(best_question)
         print(f"Patient: {patient_response}")
         
-        # Update with actual response and get reasoning
-        current_probs, current_reasoning = diagnoser.update_probabilities(
+        # Update diagnosis with the new information
+        current_probs, _ = diagnoser.update_probabilities(
             f"Question: {best_question}, Answer: {patient_response}", 
             get_reasoning=True,
-            num_diseases=len(focused_diseases)  # Only consider the focused diseases
+            num_diseases=max_diseases if not performed_first_narrowing else len(focused_diseases)
         )
         
-        # Filter probabilities to only include focused diseases
-        focused_probs = {d: current_probs.get(d, 0.0) for d in focused_diseases}
-        # Normalize to ensure they sum to 1.0
-        total = sum(focused_probs.values())
-        if total > 0:
-            focused_probs = {d: p/total for d, p in focused_probs.items()}
-        current_probs = focused_probs
+        # Filter probabilities to only include focused diseases if narrowing has occurred
+        if performed_first_narrowing:
+            focused_probs = {d: current_probs.get(d, 0.0) for d in focused_diseases}
+            # Normalize to ensure they sum to 1.0
+            total = sum(focused_probs.values())
+            if total > 0:
+                focused_probs = {d: p/total for d, p in focused_probs.items()}
+            current_probs = focused_probs
         
-        # Print the diagnostic reasoning
-        print("\n=== DIAGNOSTIC REASONING ===")
-        print(current_reasoning)
+        # Update ground truth rank
+        if not results["ground_truth_narrowed_out"]:
+            ground_truth_rank = None
+            sorted_diagnoses = sorted(current_probs.items(), key=lambda x: x[1], reverse=True)
+            for idx, (diagnosis, _) in enumerate(sorted_diagnoses):
+                if ground_truth in diagnosis.lower():
+                    ground_truth_rank = idx + 1
+                    break
+            results["ground_truth_rank"] = ground_truth_rank
+            results["ground_truth_rank_history"].append(ground_truth_rank)
+            print(f"Current ground truth rank: {ground_truth_rank if ground_truth_rank else 'not in top diseases'}")
         
         # Show updated probabilities
         print(f"\nUpdated disease probabilities:")
@@ -329,7 +307,6 @@ def run_information_gain_network(
             "turn": questions_asked,
             "question": best_question,
             "patient_response": patient_response,
-            "reasoning": current_reasoning,
             "probabilities": current_probs,
             "narrowed_diseases": len(current_probs)
         })
@@ -348,6 +325,7 @@ def run_information_gain_network(
     correct = case["diagnosis"].lower() in top_disease.lower()
     print(f"Correct diagnosis: {correct} (Ground truth: {case['diagnosis']})")
     
+    # Add final statistics
     results["questions_asked"] = questions_asked
     results["final_diagnosis"] = top_disease
     results["final_probability"] = top_prob
@@ -355,10 +333,29 @@ def run_information_gain_network(
     results["final_disease_count"] = len(current_probs)
     results["narrowing_steps"] = narrow_count
     
+    # Ensure final ground truth rank is properly recorded
+    if not results["ground_truth_narrowed_out"]:
+        # Ground truth not narrowed out, calculate final rank
+        ground_truth_rank = None
+        sorted_diagnoses = sorted(current_probs.items(), key=lambda x: x[1], reverse=True)
+        for idx, (diagnosis, _) in enumerate(sorted_diagnoses):
+            if ground_truth in diagnosis.lower():
+                ground_truth_rank = idx + 1
+                break
+        results["ground_truth_rank"] = ground_truth_rank
+        
+        # Ensure rank_history is complete (in case we missed any updates)
+        if len(results["ground_truth_rank_history"]) <= questions_asked:
+            # Add current rank to history to match questions asked
+            results["ground_truth_rank_history"].append(ground_truth_rank)
+    else:
+        # Ground truth was narrowed out, use the last known rank
+        print(f"Note: Ground truth was narrowed out. Last rank before narrowing: {results['ground_truth_last_rank']}")
+    
     print(f"Questions asked: {questions_asked}/{max_questions}")
+    print(f"Final disease count: {len(current_probs)}")
     print(f"Narrowing steps: {narrow_count}")
     elapsed_time = time.time() - start_time
     print(f"Time taken: {elapsed_time:.2f} seconds")
-    print("=" * 70)
     
     return results

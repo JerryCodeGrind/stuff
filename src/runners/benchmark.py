@@ -38,6 +38,9 @@ def run_gpt_doctor_benchmark(
     doctor = GPTDoctorAgent()
     customer = CustomerAgent(case['patient_profile'])
     
+    # Get ground truth diagnosis in lowercase for comparison
+    ground_truth = case["diagnosis"].lower()
+    
     # Track results
     results = {
         "questions_asked": 0,
@@ -47,30 +50,42 @@ def run_gpt_doctor_benchmark(
         "final_diagnosis": None,
         "final_probability": 0.0,
         "ground_truth": case["diagnosis"],
-        "interaction_history": []
+        "interaction_history": [],
+        "ground_truth_rank": None,
+        "ground_truth_rank_history": [],
+        "ground_truth_narrowed_out": False,
+        "ground_truth_last_rank": None
     }
     
     # Get initial probabilities
     print("Calculating initial diagnosis...")
-    current_probs, initial_reasoning = doctor.update_probabilities(
+    current_probs, _ = doctor.update_probabilities(
         case['doctor_vignette'], 
         get_reasoning=True,
         num_diseases=max_diseases
     )
     
-    print("\n=== INITIAL DIAGNOSTIC REASONING ===")
-    print(initial_reasoning)
-    
-    print(f"\nInitial disease probabilities:")
+    print("\n=== INITIAL PROBABILITIES ===")
     for disease, prob in sorted(current_probs.items(), key=lambda x: x[1], reverse=True):
         print(f"  {disease}: {prob:.3f}")
     
     # Track the initial diagnoses
     results["diagnoses"].append({
         "turn": 0,
-        "reasoning": initial_reasoning,
         "probabilities": current_probs
     })
+    
+    # Calculate and track initial ground truth rank
+    ground_truth_rank = None
+    sorted_diagnoses = sorted(current_probs.items(), key=lambda x: x[1], reverse=True)
+    for idx, (diagnosis, _) in enumerate(sorted_diagnoses):
+        if ground_truth in diagnosis.lower():
+            ground_truth_rank = idx + 1
+            break
+    
+    results["ground_truth_rank"] = ground_truth_rank
+    results["ground_truth_rank_history"].append(ground_truth_rank)
+    print(f"Initial ground truth rank: {ground_truth_rank}")
     
     # Ask questions until max reached
     questions_asked = 0
@@ -79,10 +94,9 @@ def run_gpt_doctor_benchmark(
         questions_asked += 1
         
         # Generate the next question
-        question, reasoning = doctor.generate_next_question(get_reasoning=True)
+        question, _ = doctor.generate_next_question(get_reasoning=True)
         
         print(f"\n--- Question {questions_asked} ---")
-        print(f"Doctor reasoning: {reasoning}")
         print(f"Doctor: {question}")
         
         # Get patient response
@@ -93,32 +107,38 @@ def run_gpt_doctor_benchmark(
         results["interaction_history"].append({
             "turn": questions_asked,
             "question": question,
-            "question_reasoning": reasoning,
             "patient_response": patient_response
         })
         
         # Update diagnosis with the new information
-        current_probs, current_reasoning = doctor.update_probabilities(
+        current_probs, _ = doctor.update_probabilities(
             f"Question: {question}, Answer: {patient_response}", 
             get_reasoning=True,
             num_diseases=max_diseases
         )
         
-        # Print the diagnostic reasoning
-        print("\n=== DIAGNOSTIC REASONING ===")
-        print(current_reasoning)
-        
-        # Show updated probabilities - show all diagnoses instead of just top 3
+        # Show updated probabilities
         print(f"\nUpdated disease probabilities:")
         for disease, prob in sorted(current_probs.items(), key=lambda x: x[1], reverse=True):
             print(f"  {disease}: {prob:.3f}")
+        
+        # Update ground truth rank
+        ground_truth_rank = None
+        sorted_diagnoses = sorted(current_probs.items(), key=lambda x: x[1], reverse=True)
+        for idx, (diagnosis, _) in enumerate(sorted_diagnoses):
+            if ground_truth in diagnosis.lower():
+                ground_truth_rank = idx + 1
+                break
+        
+        results["ground_truth_rank"] = ground_truth_rank
+        results["ground_truth_rank_history"].append(ground_truth_rank)
+        print(f"Current ground truth rank: {ground_truth_rank if ground_truth_rank else 'not in top diseases'}")
         
         # Track the diagnoses at this turn
         results["diagnoses"].append({
             "turn": questions_asked,
             "question": question,
             "patient_response": patient_response,
-            "reasoning": current_reasoning,
             "probabilities": current_probs
         })
         

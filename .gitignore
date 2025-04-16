@@ -122,6 +122,3 @@ dmypy.json
 # Mac OS
 .DS_Store
 
-# Project specific
-benchmark_results/
-

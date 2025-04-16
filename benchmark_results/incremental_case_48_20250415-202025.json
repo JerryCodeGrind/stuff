@@ -1,0 +1,41 @@
+{
+  "case_id": 48,
+  "diagnosis": "Myelodysplastic syndrome",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": 1,
+    "rank_history": [
+      5,
+      5,
+      5,
+      4,
+      2,
+      2,
+      2,
+      1
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": true
+  },
+  "gpt": {
+    "questions_asked": 10,
+    "final_rank": 2,
+    "rank_history": [
+      7,
+      6,
+      6,
+      6,
+      4,
+      4,
+      4,
+      3,
+      3,
+      2,
+      2
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  }
+}

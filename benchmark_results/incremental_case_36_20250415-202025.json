@@ -1,0 +1,33 @@
+{
+  "case_id": 36,
+  "diagnosis": "Cushings syndrome",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": null,
+    "rank_history": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "narrowed_out": true,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  },
+  "gpt": {
+    "questions_asked": 5,
+    "final_rank": null,
+    "rank_history": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  }
+}

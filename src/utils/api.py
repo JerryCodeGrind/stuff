@@ -1,9 +1,9 @@
 from openai import OpenAI
 import os
 
-# Initialize OpenAI client
+# Initialize OpenAI client with the hardcoded API key
 client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY"),
+    api_key="YOUR_OPENAI_API_KEY",
 )
 
 class FallbackResponse:

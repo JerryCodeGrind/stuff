@@ -1,0 +1,40 @@
+{
+  "case_id": 57,
+  "diagnosis": "Eosinophilic esophagitis",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": 4,
+    "rank_history": [
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      null
+    ],
+    "narrowed_out": true,
+    "last_rank_before_narrowing": 4,
+    "correct_diagnosis": false
+  },
+  "gpt": {
+    "questions_asked": 10,
+    "final_rank": 1,
+    "rank_history": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": true
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": 26,
+  "diagnosis": "Bronchiectasis",
+  "ign": {
+    "questions_asked": 7,
+    "final_rank": 2,
+    "rank_history": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      null
+    ],
+    "narrowed_out": true,
+    "last_rank_before_narrowing": 2,
+    "correct_diagnosis": false
+  },
+  "gpt": {
+    "questions_asked": 10,
+    "final_rank": 3,
+    "rank_history": [
+      2,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3
+    ],
+    "narrowed_out": false,
+    "last_rank_before_narrowing": null,
+    "correct_diagnosis": false
+  }
+}

@@ -1,6 +1,5 @@
 from typing import Dict, Tuple, List
 from src.utils.api import call_completion_api
-from src.models.case import POTENTIAL_SKIN_DIAGNOSES
 
 class DiagnoserAgent:
     def __init__(self):
@@ -14,19 +13,17 @@ class DiagnoserAgent:
         
         Args:
             additional_info: New clinical information
-            get_reasoning: Whether to return reasoning along with probabilities
+            get_reasoning: Whether to return reasoning along with probabilities (deprecated, kept for backward compatibility)
             num_diseases: Number of top diseases to include in the response
             
         Returns:
-            Dictionary of disease probabilities, and reasoning if requested
+            Dictionary of disease probabilities, and empty reasoning if get_reasoning is True
         """
-        prompt = f"""You are an expert medical diagnosis assistant with extensive knowledge of internal medicine, symptomatology, and differential diagnosis. Based on the information provided below, determine the SPECIFIC top {num_diseases} most likely diagnoses along with their updated probabilities. You are communicating with the patient so be empathetic and reassuring.
+        prompt = f"""You are an expert medical diagnosis assistant with extensive knowledge of internal medicine, symptomatology, and differential diagnosis. Based on the information provided below, determine the SPECIFIC top {num_diseases} most likely diagnoses along with their updated probabilities.
 
 Patient Information: {self.patient_info}  
 Prior Probabilities: {self.previous_probabilities}  
 New Clinical Information: {additional_info}
-
-You are communicating with the patient so be empathetic and reassuring.
 
 Your task is to update the probabilities using Bayesian reasoning, incorporating new evidence without introducing bias toward the prior probabilities—they are provided only to give context about the patient's prior likelihoods.
 
@@ -64,82 +61,17 @@ Where:
 - Probabilities must be between 0 and 1 (e.g., 0.350)
 - The sum of all probabilities must equal 1.000 exactly
 - Do not include any narrative text, explanations, or additional information
-- If you're unsure of additional diagnoses to include, consider these common dermatological conditions: Warts, Psoriasis, Eczema (Atopic Dermatitis), Contact Dermatitis, Seborrheic Keratosis, Actinic Keratosis, Lichen Planus, Folliculitis, Basal Cell Carcinoma, Squamous Cell Carcinoma.
 
 This exact format is required for automated parsing. Do not deviate from it in any way.
 """
-
-        reasoning_prompt = f"""You are an expert medical diagnosis assistant with extensive knowledge of internal medicine, symptomatology, and differential diagnosis. Based on the information provided below, determine the SPECIFIC top {num_diseases} most likely diagnoses along with their updated probabilities.
-
-Patient Information: {self.patient_info}  
-Prior Probabilities: {self.previous_probabilities}  
-New Clinical Information: {additional_info}
-
-You are communicating with the patient so be empathetic and reassuring.
-
-Your task is to update the probabilities using Bayesian reasoning, incorporating new evidence without introducing bias toward the prior probabilities—they are provided only to give context about the patient's prior likelihoods.
-
-### Medical Knowledge Guidelines:
-- Consider the epidemiology and prevalence of different conditions
-- Analyze the temporal sequence of symptom development
-- Evaluate risk factors and comorbidities
-- Assess the specificity and sensitivity of reported symptoms
-- Factor in demographic information appropriately
-- Recognize common symptom patterns and clinical presentations
-- Consider both common and rare diagnoses that fit the symptom profile
-
-### Key Instructions:
-- Consider how each new piece of information impacts the existing probabilities.
-- Avoid mechanical normalization: only adjust probabilities when there's a justifiable reason based on the evidence.
-- If a symptom is not relevant to a condition, do not adjust that condition's probability.
-- Your output should be explainable—each probability should reflect an evidence-based shift, whether increased, decreased, or unchanged.
-- Always use the FULL, proper medical name for each diagnosis (e.g., "Heart Failure" not "Failure", "Chronic Obstructive Pulmonary Disease" not "COPD")
-- When new information suggests a diagnosis not previously considered, you should include it and adjust probabilities accordingly.
-- You MUST return EXACTLY {num_diseases} diagnoses, even if some have very low probabilities.
-
-### REQUIRED OUTPUT FORMAT:
-You MUST provide your response in exactly TWO parts, clearly separated by a double newline (\\n\\n):
-
-PART 1: Your medical reasoning for the diagnostic probabilities. Explain your thinking process.
-
-PART 2: EXACTLY {num_diseases} diagnoses with their probabilities, formatted as follows:
-
-Disease name 1|0.XXX
-Disease name 2|0.XXX
-Disease name 3|0.XXX
-Disease name 4|0.XXX
-Disease name 5|0.XXX
-(etc. until you have provided exactly {num_diseases} diseases)
-
-Where:
-- Each disease-probability pair must be on its own line
-- Use the pipe character | between disease name and probability
-- Probabilities must be between 0 and 1 (e.g., 0.350)
-- The sum of all probabilities must equal 1.000 exactly
-- If you're unsure of additional diagnoses to include, consider these common dermatological conditions: Warts, Psoriasis, Eczema (Atopic Dermatitis), Contact Dermatitis, Seborrheic Keratosis, Actinic Keratosis, Lichen Planus, Folliculitis, Basal Cell Carcinoma, Squamous Cell Carcinoma.
-
-This exact format is required for automated parsing. Do not include any additional text after the probability list.
-"""
-        
-        # Use the appropriate prompt based on whether reasoning is requested
-        current_prompt = reasoning_prompt if get_reasoning else prompt
         
         # Make API call
         response = call_completion_api(
             model="gpt-4o-mini",
-            messages=[{"role": "user", "content": current_prompt}]
+            messages=[{"role": "user", "content": prompt}]
         )
         
         content = response.choices[0].message.content
-        
-        # Extract reasoning if requested
-        reasoning = None
-        if get_reasoning:
-            # Split content to separate reasoning from probabilities list
-            parts = content.split("\n\n")
-            if len(parts) > 1:
-                reasoning = parts[0]
-                content = parts[-1]  # Take the last part which should be the probabilities
         
         # Simple, direct parsing approach - just look for lines with pipe symbols
         probabilities = {}
@@ -182,7 +114,7 @@ This exact format is required for automated parsing. Do not include any addition
         if len(probabilities) < num_diseases:
             # Add additional diseases with very small probabilities
             existing_diseases = set(probabilities.keys())
-            for disease in POTENTIAL_SKIN_DIAGNOSES:
+            for disease in ["Warts", "Psoriasis", "Eczema (Atopic Dermatitis)", "Contact Dermatitis", "Seborrheic Keratosis", "Actinic Keratosis", "Lichen Planus", "Folliculitis", "Basal Cell Carcinoma", "Squamous Cell Carcinoma"]:
                 if disease not in existing_diseases and len(probabilities) < num_diseases:
                     probabilities[disease] = 0.0001
             
@@ -213,7 +145,8 @@ This exact format is required for automated parsing. Do not include any addition
         self.previous_probabilities = probabilities
         self.patient_info += additional_info + " "
         
-        # If reasoning was requested, return both reasoning and probabilities
-        if get_reasoning and reasoning:
-            return probabilities, reasoning
+        # If reasoning was requested, return an empty string as reasoning
+        if get_reasoning:
+            empty_reasoning = "No reasoning provided as reasoning output is disabled."
+            return probabilities, empty_reasoning
         return probabilities 

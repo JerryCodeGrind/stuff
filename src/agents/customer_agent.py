@@ -10,9 +10,9 @@ class CustomerAgent:
         
         The doctor asks: {question}
         
-        Act as if you are a regular patient. Do not reveal any information about your diagnosis or anything related to your diagnosis. 
+        Act as if you are a regular patient. Do not reveal any information about your diagnosis or anything related to your diagnosis. Do not respond with an extremely long answer
 
-        Respond with a concise answers. Try to make some answers ambiguous as you are just a patient and aren't sure of what your diagnosis is.
+        Respond with a concise answer. Try to make some answers ambiguous as you are just a patient and aren't sure of what your diagnosis is.
         
         Include relevant details about your symptoms and be specific about your experience.
         If you're unsure, indicate your uncertainty.
